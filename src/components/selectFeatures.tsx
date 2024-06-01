@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import {getCompetitorsData, getFeaturesData} from "@/api/response.tsx";
-import CompetitorsTable from "@/components/competitors/competitors.tsx";
-import {Competitors} from "@/type.tsx";
+import {getFeaturesData} from "@/api/response.tsx";
 
 interface Features {
     feature: string;
@@ -31,9 +29,6 @@ const Bubble: React.FC<BubbleProps> = ({ feature, onRemove }) => {
 
 const SelectFeatures: React.FC<SelectFeaturesProps> = ({ onValidated }) => {
     const [features, setFeatures] = useState<Features[]>([]);
-    const [showCompetitors, setShowCompetitors] = useState<boolean>(false);
-    const [competitors, setCompetitors] = useState<Competitors[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
@@ -44,14 +39,6 @@ const SelectFeatures: React.FC<SelectFeaturesProps> = ({ onValidated }) => {
 
     const handleRemoveFeature = (featureToRemove: string) => {
         setFeatures(features.filter(({ feature }) => feature !== featureToRemove));
-    };
-
-    const handleShowCompetitors = async () => {
-        setLoading(true);
-        const result = await getCompetitorsData();
-        setCompetitors(result);
-        setLoading(false);
-        setShowCompetitors(true);
     };
 
     const handleValidate = () => {
@@ -80,9 +67,6 @@ const SelectFeatures: React.FC<SelectFeaturesProps> = ({ onValidated }) => {
                 </AccordionItem>
             </Accordion>
             <Button onClick={handleValidate}>Let's Go</Button>
-            {showCompetitors && (
-                <CompetitorsTable data={competitors} loading={loading} />
-            )}
         </div>
     );
 };

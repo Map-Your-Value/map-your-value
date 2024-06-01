@@ -37,7 +37,6 @@ function App() {
 
     const handleValidated = async (selectedFeatures: Features[]) => {
         console.log("Selected features:", selectedFeatures);
-        // You can add any additional logic here
         await handleSearchCompetitors();
     };
 
