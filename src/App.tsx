@@ -1,33 +1,59 @@
 import { useState } from 'react';
 import './App.css';
 import InputSearch from "@/components/inputSearch.tsx";
-import { Competitors } from "@/components/competitors/columns.tsx";
 import CompetitorsTable from "@/components/competitors/competitors.tsx";
-import {getData} from "@/api/response.tsx";
+import {getCompoetitorsData, getFeaturesData} from "@/api/response.tsx";
+import {Competitors, Features} from "@/type.tsx";
+import SelectFeatures from "@/components/selectFeatures.tsx";
 
 function App() {
-    const [showDemoPage, setShowDemoPage] = useState(false);
-    const [data, setData] = useState<Competitors[]>([]);
+    const [showCompetitorsTable, setShowCompetitorsTable] = useState(false);
+    const [showSelectFeatures, setShowSelectFeatures] = useState(false);
+    const [features, setFeatures] = useState<Features[]>([]);
+    const [competitors, setCompetitors] = useState<Competitors[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const handleSearch = async () => {
+    const handleSearchFeatures = async () => {
         setLoading(true);
-        const result = await getData();
-        setData(result);
+        const result = await getFeaturesData();
+        setFeatures(result);
         setLoading(false);
-        setShowDemoPage(false);
+        setShowSelectFeatures(false);
         setTimeout(() => {
-            setShowDemoPage(true);
+            setShowSelectFeatures(true);
         }, 50);
+    };
+
+    const handleSearchCompetitors = async () => {
+        setLoading(true);
+        const result = await getCompoetitorsData();
+        setCompetitors(result);
+        setLoading(false);
+        setShowCompetitorsTable(false);
+        setTimeout(() => {
+            setShowCompetitorsTable(true);
+        }, 50);
+    };
+
+    const handleValidated = async (selectedFeatures: Features[]) => {
+        console.log("Selected features:", selectedFeatures);
+        // You can add any additional logic here
+        await handleSearchCompetitors();
     };
 
     return (
         <>
             <div className="h-screen w-full flex flex-col justify-center items-center">
-                <InputSearch onSearch={handleSearch} />
-                {showDemoPage && (
+                <InputSearch onSearch={handleSearchFeatures} />
+                {showSelectFeatures && (
                     <div className="w-full animate-fadeIn">
-                        <CompetitorsTable data={data} loading={loading} />
+                        <SelectFeatures onValidated={handleValidated} />
+                    </div>
+                )}
+
+                {showCompetitorsTable && (
+                    <div className="w-full animate-fadeIn">
+                        <CompetitorsTable data={competitors} loading={loading} />
                     </div>
                 )}
             </div>

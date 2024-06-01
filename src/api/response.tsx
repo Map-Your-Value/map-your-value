@@ -1,6 +1,6 @@
-import {Competitors} from "@/components/competitors/columns.tsx";
+import {Competitors, Features} from "@/type.tsx";
 
-export async function getData(): Promise<Competitors[]> {
+export async function getCompoetitorsData(): Promise<Competitors[]> {
     return [
         {
             id: "1",
@@ -42,5 +42,60 @@ export async function getData(): Promise<Competitors[]> {
             features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
             uniqueVisitor: 450000,
         },
+        {
+            id: "6",
+            name: "CreativeFlow",
+            website: "https://www.creativeflow.com",
+            summary: "CreativeFlow is an all-in-one design platform that simplifies the creation of graphics, presentations, and more.",
+            features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
+            uniqueVisitor: 450000,
+        },
+        {
+            id: "7",
+            name: "CreativeFlow",
+            website: "https://www.creativeflow.com",
+            summary: "CreativeFlow is an all-in-one design platform that simplifies the creation of graphics, presentations, and more.",
+            features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
+            uniqueVisitor: 450000,
+        },
+        {
+            id: "8",
+            name: "CreativeFlow",
+            website: "https://www.creativeflow.com",
+            summary: "CreativeFlow is an all-in-one design platform that simplifies the creation of graphics, presentations, and more.",
+            features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
+            uniqueVisitor: 450000,
+        },
+        {
+            id: "9",
+            name: "CreativeFlow",
+            website: "https://www.creativeflow.com",
+            summary: "CreativeFlow is an all-in-one design platform that simplifies the creation of graphics, presentations, and more.",
+            features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
+            uniqueVisitor: 450000,
+        },
+        {
+            id: "10",
+            name: "CreativeFlow",
+            website: "https://www.creativeflow.com",
+            summary: "CreativeFlow is an all-in-one design platform that simplifies the creation of graphics, presentations, and more.",
+            features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
+            uniqueVisitor: 450000,
+        },
+    ];
+}
+
+export async function getFeaturesData(): Promise<Features[]> {
+    return [
+        { feature: "Responsive Design" },
+        { feature: "SEO Optimization" },
+        { feature: "Live Chat Support" },
+        { feature: "Newsletter Signup" },
+        { feature: "Social Media Integration" },
+        { feature: "Contact Form" },
+        { feature: "Blog" },
+        { feature: "About Us Page" },
+        { feature: "Calls to Action" },
+        { feature: "Search Functionality" }
     ];
 }

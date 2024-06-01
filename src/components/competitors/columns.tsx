@@ -1,13 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-
-export type Competitors = {
-    id: string;
-    name: string;
-    website: string;
-    summary: string;
-    features: string[];
-    uniqueVisitor: number;
-};
+import {Competitors} from "@/type.tsx";
 
 export const columns: ColumnDef<Competitors>[] = [
     {
