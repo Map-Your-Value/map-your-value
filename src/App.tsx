@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import InputSearch from "@/components/inputSearch.tsx";
 import CompetitorsTable from "@/components/competitors/competitors.tsx";
-import {getCompoetitorsData, getFeaturesData} from "@/api/response.tsx";
+import {getCompetitorsData, getFeaturesData} from "@/api/response.tsx";
 import {Competitors, Features} from "@/type.tsx";
 import SelectFeatures from "@/components/selectFeatures.tsx";
 
@@ -26,7 +26,7 @@ function App() {
 
     const handleSearchCompetitors = async () => {
         setLoading(true);
-        const result = await getCompoetitorsData();
+        const result = await getCompetitorsData();
         setCompetitors(result);
         setLoading(false);
         setShowCompetitorsTable(false);

@@ -1,6 +1,6 @@
 import {Competitors, Features} from "@/type.tsx";
 
-export async function getCompoetitorsData(): Promise<Competitors[]> {
+export async function getCompetitorsData(): Promise<Competitors[]> {
     return [
         {
             id: "1",
