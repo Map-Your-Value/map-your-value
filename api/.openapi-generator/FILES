@@ -1,0 +1,13 @@
+apis/DefaultApi.ts
+apis/index.ts
+index.ts
+models/BodyFilterSearchByCompetitorFilterCompetitorPost.ts
+models/DescriptionOfACompany.ts
+models/Feature.ts
+models/HTTPValidationError.ts
+models/RankCompetitorList.ts
+models/RankFeatureList.ts
+models/ValidationError.ts
+models/ValidationErrorLocInner.ts
+models/index.ts
+runtime.ts

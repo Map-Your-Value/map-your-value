@@ -1,6 +1,77 @@
 import {Competitors, Features} from "@/type.tsx";
+import { useEffect, useState } from 'react';
+import { DefaultApi, Configuration, RankCompetitorList } from '../../api';
+import { SearchCompetitorCompetitorPostRequest } from "../../api/apis/DefaultApi";
 
-export async function getCompetitorsData(): Promise<Competitors[]> {
+const api = new DefaultApi(new Configuration({ basePath: 'http://127.0.0.1:8000' }));
+
+
+export async function getCompetitorsData(search: string): Promise<any> { // RankCompetitorList[] the right return type
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const requestData: SearchCompetitorCompetitorPostRequest = { search };
+            const response = await api.searchCompetitorCompetitorPost(requestData); // Replace with your actual endpoint method
+            setData(response.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
+
+        fetchData();
+    }, []);
+    console.log(data)
+    return data;
+
+/*
+{
+  "search": "www.quivr.com",
+  "ourCompany": {
+    "id": 0,
+    "name": "quivr",
+    "website": "www.quivr.com",
+    "summary": "summary of quivr here",
+    "features": [
+      "features1",
+      "features2"
+    ],
+    "uniqueVisitor": 1000000
+  },
+  "endResult": {
+    "competitors": [
+      {
+        "id": 1,
+        "name": "parcha",
+        "website": "www.parcha.com",
+        "summary": "summary of parcha here",
+        "features": [
+          "features1",
+          "features2"
+        ],
+        "uniqueVisitor": 1000
+      },
+      {
+        "id": 2,
+        "name": "simular",
+        "website": "www.simular.ai/",
+        "summary": "summary of simular here",
+        "features": [
+          "features1",
+          "features2"
+        ],
+        "uniqueVisitor": 500
+      }
+    ]
+  }
+}
+
+
+*/
+
+
+/*
     return [
         {
             id: "1",
@@ -83,6 +154,8 @@ export async function getCompetitorsData(): Promise<Competitors[]> {
             uniqueVisitor: 450000,
         },
     ];
+*/
+
 }
 
 export async function getFeaturesData(): Promise<Features[]> {

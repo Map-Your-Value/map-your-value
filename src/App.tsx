@@ -4,15 +4,17 @@ import InputSearch from "@/components/inputSearch.tsx";
 import CompetitorsTable from "@/components/competitors/competitors.tsx";
 import {getCompetitorsData, getFeaturesData} from "@/api/response.tsx";
 import {Competitors, Features} from "@/type.tsx";
-import SelectFeatures from "@/components/selectFeatures.tsx";
+import { Search } from 'lucide-react';
+// import SelectFeatures from "@/components/selectFeatures.tsx";
 
 function App() {
     const [showCompetitorsTable, setShowCompetitorsTable] = useState(false);
-    const [showSelectFeatures, setShowSelectFeatures] = useState(false);
-    const [features, setFeatures] = useState<Features[]>([]);
+    // const [showSelectFeatures, setShowSelectFeatures] = useState(false);
+    // const [features, setFeatures] = useState<Features[]>([]);
     const [competitors, setCompetitors] = useState<Competitors[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
+    /*
     const handleSearchFeatures = async () => {
         setLoading(true);
         const result = await getFeaturesData();
@@ -22,11 +24,10 @@ function App() {
         setTimeout(() => {
             setShowSelectFeatures(true);
         }, 50);
-    };
-
-    const handleSearchCompetitors = async () => {
+    };*/
+    const handleSearchCompetitors = async (search: string) => {
         setLoading(true);
-        const result = await getCompetitorsData();
+        const result = await getCompetitorsData(search);
         setCompetitors(result);
         setLoading(false);
         setShowCompetitorsTable(false);
@@ -37,19 +38,14 @@ function App() {
 
     const handleValidated = async (selectedFeatures: Features[]) => {
         console.log("Selected features:", selectedFeatures);
-        await handleSearchCompetitors();
+        await handleSearchCompetitors("test");
     };
 
     return (
         <>
             <div className="h-screen w-full flex flex-col justify-center items-center">
-                <InputSearch onSearch={handleSearchFeatures} />
-                {showSelectFeatures && (
-                    <div className="w-full animate-fadeIn">
-                        <SelectFeatures onValidated={handleValidated} />
-                    </div>
-                )}
-
+                <InputSearch onSearch={handleSearchCompetitors} />
+                
                 {showCompetitorsTable && (
                     <div className="w-full animate-fadeIn">
                         <CompetitorsTable data={competitors} loading={loading} />

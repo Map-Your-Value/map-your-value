@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface InputSearchProps {
-    onSearch: () => void;
+    onSearch: (search: string) => void;
 }
 
 const InputSearch: React.FC<InputSearchProps> = ({ onSearch }) => {
@@ -16,7 +16,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ onSearch }) => {
             "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
             "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // optional port and path
             "(\\?[;&a-z\\d%_.~+=-]*)?" + // optional query string
-            "(\\#[-a-z\\d_]*)?$", "i" // optional fragment locator
+            "(\\#[-a-z\\d_]*)?$", "i" // optional fragment locator  
         );
 
         if (inputValue.trim() === "") {
@@ -28,7 +28,7 @@ const InputSearch: React.FC<InputSearchProps> = ({ onSearch }) => {
         } else {
             setError(false);
             setErrorMessage("");
-            onSearch();
+            onSearch(inputValue);
         }
     };
 

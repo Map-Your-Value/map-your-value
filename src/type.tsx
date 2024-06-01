@@ -7,6 +7,8 @@ export type Competitors = {
     uniqueVisitor: number;
 };
 
+
+
 export type Features = {
     feature: string;
 };
