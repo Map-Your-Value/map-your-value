@@ -33,6 +33,6 @@ export const columns: ColumnDef<Competitors>[] = [
     },
     {
         accessorKey: "uniqueVisitor",
-        header: "Unique Visitor",
+        header: "Visitor (/month)",
     },
 ]

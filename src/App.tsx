@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import Header from "@/layout/header.tsx";
 import InputSearch from "@/components/inputSearch.tsx";
 import { Competitors } from "@/components/competitors/columns.tsx";
 import CompetitorsTable from "@/components/competitors/competitors.tsx";
@@ -9,27 +8,43 @@ async function getData(): Promise<Competitors[]> {
     return [
         {
             id: "1",
-            name: "Competitor One",
-            website: "https://www.competitor1.com",
-            summary: "This is the summary of Competitor One.",
-            features: ["Feature 1", "Feature 2"],
-            uniqueVisitor: 1000,
+            name: "DesignPro",
+            website: "https://www.designpro.com",
+            summary: "DesignPro is a leading online design platform offering a wide range of templates and design tools for creating stunning visuals.",
+            features: ["Drag-and-drop editor", "Customizable templates", "Stock photo library", "Collaboration tools"],
+            uniqueVisitor: 500000,
         },
         {
             id: "2",
-            name: "Competitor Two",
-            website: "https://www.competitor2.com",
-            summary: "This is the summary of Competitor Two.",
-            features: ["Feature 3", "Feature 4"],
-            uniqueVisitor: 2000,
+            name: "ArtStudio",
+            website: "https://www.artstudio.com",
+            summary: "ArtStudio provides a comprehensive suite of design tools tailored for artists and creative professionals.",
+            features: ["Advanced drawing tools", "Layer management", "Brush customization", "Vector editing"],
+            uniqueVisitor: 300000,
         },
         {
             id: "3",
-            name: "Competitor Three",
-            website: "https://www.competitor3.com",
-            summary: "This is the summary of Competitor Three.",
-            features: ["Feature 5", "Feature 6"],
-            uniqueVisitor: 3000,
+            name: "GraphicGenie",
+            website: "https://www.graphicgenie.com",
+            summary: "GraphicGenie helps users create beautiful graphics and marketing materials with ease and efficiency.",
+            features: ["Pre-made templates", "Branding kit", "Social media integration", "Export options"],
+            uniqueVisitor: 400000,
+        },
+        {
+            id: "4",
+            name: "VisualCraft",
+            website: "https://www.visualcraft.com",
+            summary: "VisualCraft offers powerful design solutions for businesses and individuals looking to create professional-grade visuals.",
+            features: ["Template library", "Custom fonts", "Image editing", "Team collaboration"],
+            uniqueVisitor: 350000,
+        },
+        {
+            id: "5",
+            name: "CreativeFlow",
+            website: "https://www.creativeflow.com",
+            summary: "CreativeFlow is an all-in-one design platform that simplifies the creation of graphics, presentations, and more.",
+            features: ["Presentation maker", "Video editor", "Custom animations", "Real-time collaboration"],
+            uniqueVisitor: 450000,
         },
     ];
 }
@@ -52,8 +67,7 @@ function App() {
 
     return (
         <>
-            <Header />
-            <div className="h-screen flex flex-col justify-center items-center">
+            <div className="h-screen w-full flex flex-col justify-center items-center">
                 <InputSearch onSearch={handleSearch} />
                 {showDemoPage && (
                     <div className="w-full animate-fadeIn">

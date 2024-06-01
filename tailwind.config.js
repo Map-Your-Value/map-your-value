@@ -9,6 +9,9 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      sans: ['Satoshi', 'sans-serif'],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -17,8 +20,10 @@ module.exports = {
       },
     },
     extend: {
-
       colors: {
+        gray: '#F6F6F6',
+        grayText: '#3C3C43',
+        red: '#FF0000',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -53,6 +58,18 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontSize: {
+        'base': '48px',
+      },
+      fontWeight: {
+        medium: 500,
+      },
+      lineHeight: {
+        relaxed: '119.444%',
+      },
+      letterSpacing: {
+        tight: '-1.92px',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -75,4 +92,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
