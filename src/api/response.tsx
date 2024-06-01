@@ -1,18 +1,19 @@
-import {Configuration, DefaultApi} from '../../api';
-import {SearchCompetitorCompetitorPostRequest} from "../../api";
-import {Competitors, Features} from "@/type.tsx";
+import { Configuration, DefaultApi, SearchCompetitorCompetitorGetRequest } from '../../api';
+import { Features } from "@/type.tsx";
+import { CompetitorsResponse } from "@/App.tsx";
 
 const api = new DefaultApi(new Configuration({ basePath: 'http://127.0.0.1:8000' }));
 
-export async function getCompetitorsData(search: string): Promise<Competitors|null> {
+export async function getCompetitorsData(search: string): Promise<CompetitorsResponse> {
     try {
-        const requestData: SearchCompetitorCompetitorPostRequest = { search };
-        return await api.searchCompetitorCompetitorPost(requestData);
+        const requestData: SearchCompetitorCompetitorGetRequest = { search };
+        return await api.searchCompetitorCompetitorGet(requestData);
     } catch (error) {
         console.error('Error fetching data:', error);
-        return null;
+        return { competitors: [] };
     }
 }
+
 export async function getFeaturesData(): Promise<Features[]> {
     return [
         { feature: "Responsive Design" },

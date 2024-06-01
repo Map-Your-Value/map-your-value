@@ -5,6 +5,7 @@ export type Competitors = {
     summary: string;
     features: string[];
     uniqueVisitor: number;
+    cost: number;
 };
 
 

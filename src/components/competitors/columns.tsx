@@ -29,4 +29,8 @@ export const columns: ColumnDef<Competitors>[] = [
         accessorKey: "uniqueVisitor",
         header: "Visitor (/month)",
     },
+    {
+        accessorKey: "cost",
+        header: "Cost",
+    },
 ];

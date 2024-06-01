@@ -5,6 +5,10 @@ import CompetitorsTable from "@/components/competitors/competitors.tsx";
 import { getCompetitorsData } from "@/api/response.tsx";
 import { Competitors } from "@/type.tsx";
 
+export interface CompetitorsResponse {
+    competitors: Competitors[];
+}
+
 function App() {
     const [showCompetitorsTable, setShowCompetitorsTable] = useState(false);
     const [competitors, setCompetitors] = useState<Competitors[]>([]);
@@ -13,7 +17,7 @@ function App() {
     const handleSearchCompetitors = async (search: string) => {
         setLoading(true);
         try {
-            const result = await getCompetitorsData(search);
+            const result : CompetitorsResponse = await getCompetitorsData(search);
             console.log('Result from getCompetitorsData:', result);
             if (result && result.competitors) {
                 setCompetitors(result.competitors);
