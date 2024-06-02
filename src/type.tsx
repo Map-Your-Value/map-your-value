@@ -6,6 +6,7 @@ export type Competitors = {
     Proximity_score: number;
     Proximity_Explanation: string;
     Crunchbase_Link: string;
+    Company_Card: string;
 };
 
 

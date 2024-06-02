@@ -3,7 +3,7 @@ import { Competitors } from "@/type.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import {Popover} from "@radix-ui/react-popover";
 import {PopoverContent, PopoverTrigger} from "@/components/ui/popover.tsx";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog.tsx";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogDescription } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
 
 export const columns: ColumnDef<Competitors>[] = [
@@ -112,7 +112,7 @@ export const columns: ColumnDef<Competitors>[] = [
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <div>infos</div>
+                        <div>{row.original.Company_Card}</div>
                     </div>
                 </DialogContent>
             </Dialog>
@@ -120,8 +120,3 @@ export const columns: ColumnDef<Competitors>[] = [
     },
 ];
 
-export function assignRanks(data: Competitors[]): Competitors[] {
-    return data
-        .sort((a, b) => b.Proximity_score - a.Proximity_score)
-        .map((item, index) => ({ ...item, Rank: index + 1 }));
-}

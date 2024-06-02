@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     ColumnDef,
     flexRender,
     getCoreRowModel,
     useReactTable,
     PaginationState,
+    getPaginationRowModel,
 } from "@tanstack/react-table";
 import NameIcon from '@/assets/name.svg';
 import WebsiteIcon from '@/assets/website.svg';
@@ -22,7 +23,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import {Competitors} from "@/type.tsx";
+import { Competitors } from "@/type.tsx";
+import { Button } from "@/components/ui/button.tsx";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -39,7 +41,7 @@ const icons = {
     Crunchbase_Link: WebsiteIcon,
 };
 
-function assignRanks(data: Competitors[]): Competitors[] {
+export function assignRanks(data: Competitors[]): Competitors[] {
     return data
         .sort((a, b) => b.Proximity_score - a.Proximity_score)
         .map((item, index) => ({ ...item, Rank: index + 1 }));
@@ -50,7 +52,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         pageIndex: 0,
         pageSize: 5,
     });
-    const [rowSelection, setRowSelection] = React.useState({});
+    const [rowSelection, setRowSelection] = useState({});
 
     const sortedData = assignRanks(data);
 
@@ -58,14 +60,20 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
         data: sortedData,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        pageCount: Math.ceil(sortedData.length / pagination.pageSize),
+        getPaginationRowModel: getPaginationRowModel(),
+        pageCount: Math.ceil(data.length / pagination.pageSize),
         state: {
             pagination,
             rowSelection,
         },
         onPaginationChange: setPagination,
         onRowSelectionChange: setRowSelection,
+        manualPagination: true,
     });
+
+    useEffect(() => {
+        console.log('Pagination state:', pagination);
+    }, [pagination]);
 
     return (
         <>
@@ -98,7 +106,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     </TableHeader>
                     <TableBody className="bg-white">
                         {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
+                            table.getRowModel().rows.slice(0, 5).map((row) => ( // Limiter à 5 lignes
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
@@ -122,6 +130,30 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                         )}
                     </TableBody>
                 </Table>
+            </div>
+            <div className="flex items-center justify-end space-x-2 py-4">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                        console.log('Previous page clicked');
+                        table.previousPage();
+                    }}
+                    disabled={!table.getCanPreviousPage()}
+                >
+                    Previous
+                </Button>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                        console.log('Next page clicked');
+                        table.nextPage();
+                    }}
+                    disabled={!table.getCanNextPage()}
+                >
+                    Next
+                </Button>
             </div>
         </>
     );
