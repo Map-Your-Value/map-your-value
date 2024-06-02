@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-import InputSearch from "@/components/inputSearch.tsx";
-import CompetitorsTable from "@/components/competitors/competitors.tsx";
-import { getCompetitorsData } from "@/api/response.tsx";
+import InputSearch from "@/components/inputSearch";
+import CompetitorsTable from "@/components/competitors/competitors";
 import { Competitors } from "@/type.tsx";
+import { searchCompetitorCompetitorGetRaw } from "@/api/call.tsx";
 
 export interface CompetitorsResponse {
     competitors: Competitors[];
@@ -17,7 +17,7 @@ function App() {
     const handleSearchCompetitors = async (search: string) => {
         setLoading(true);
         try {
-            const result : CompetitorsResponse = await getCompetitorsData(search);
+            const result: CompetitorsResponse = await searchCompetitorCompetitorGetRaw({ search });
             console.log('Result from getCompetitorsData:', result);
             if (result && result.competitors) {
                 setCompetitors(result.competitors);

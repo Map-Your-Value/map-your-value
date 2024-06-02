@@ -30,47 +30,43 @@ export const columns: ColumnDef<Competitors>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "name",
-        header: "Name",
+        accessorKey: "Competitor",
+        header: "Competitor",
         cell: info => info.getValue(),
         enableSorting: true,
     },
     {
-        accessorKey: "website",
-        header: "Website",
+        accessorKey: "Descriptive_summary",
+        header: "Descriptive Summary",
+    },
+    {
+        accessorKey: "Strengths",
+        header: "Strengths",
+        cell: info => (Array.isArray(info.getValue()) ? (info.getValue() as string[]).join(", ") : info.getValue()),
+    },
+    {
+        accessorKey: "Weaknesses",
+        header: "Weaknesses",
+        cell: info => (Array.isArray(info.getValue()) ? (info.getValue() as string[]).join(", ") : info.getValue()),
+    },
+    {
+        accessorKey: "Proximity_Score",
+        header: "Proximity Score",
+        cell: info => info.getValue(),
+    },
+    {
+        accessorKey: "Proximity_Explanation",
+        header: "Proximity Explanation",
+    },
+    {
+        accessorKey: "Crunchbase_Link",
+        header: "Crunchbase Link",
         cell: info => {
-            const website = info.getValue() as string;
+            const crunchbaseLink = info.getValue() as string;
             return (
-                <a href={website} className="underline" target="_blank" rel="noopener noreferrer">
-                    {website}
+                <a href={crunchbaseLink} className="underline" target="_blank" rel="noopener noreferrer">
+                    Crunchbase
                 </a>
-            );
-        },
-    },
-    {
-        accessorKey: "summary",
-        header: "Summary",
-    },
-    {
-        accessorKey: "features",
-        header: "Features",
-        cell: info => (info.getValue() as string[]).join(", "),
-    },
-    {
-        accessorKey: "uniqueVisitor",
-        header: "Visitor (/month)",
-    },
-    {
-        accessorKey: "cost",
-        header: "Measure",
-        cell: info => {
-            const value = info.getValue() as number;
-            return (
-                <div className="w-full">
-                    <div className="w-full h-2 bg-greenBg rounded-full">
-                        <div className="h-2 bg-green-600 rounded-full" style={{ width: `${value * 100 / 5}%` }}></div>
-                    </div>
-                </div>
             );
         },
     },

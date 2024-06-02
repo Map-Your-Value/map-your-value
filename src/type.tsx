@@ -1,11 +1,11 @@
 export type Competitors = {
-    id: string;
-    name: string;
-    website: string;
-    summary: string;
-    features: string[];
-    uniqueVisitor: number;
-    cost: number;
+    Competitor: string;
+    Descriptive_summary: string;
+    Strengths: string[] | string;
+    Weaknesses: string[] | string;
+    Proximity_Score: number;
+    Proximity_Explanation: string;
+    Crunchbase_Link: string;
 };
 
 
