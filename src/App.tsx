@@ -37,9 +37,14 @@ function App() {
 
     return (
         <>
+            <div className="absolute inset-0 overflow-hidden z-[-1]">
+                <div className="absolute inset-0 filter blur-lg">
+                    <div className="absolute w-72 h-72 bg-gradientEnd opacity-40 rounded-full top-1/4 left-1/4 px-32 py-16"></div>
+                    <div className="absolute w-96 h-96 bg-gradientStart opacity-40 rounded-full top-1/3 left-2/4"></div>
+                </div>
+            </div>
             <div className="h-screen w-full flex flex-col justify-center items-center">
                 <InputSearch onSearch={handleSearchCompetitors} />
-
                 {showCompetitorsTable && (
                     <div className="w-full animate-fadeIn">
                         <CompetitorsTable data={competitors} loading={loading} />

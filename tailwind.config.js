@@ -10,20 +10,30 @@ module.exports = {
   prefix: "",
   theme: {
     fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
+      sans: ['Satoshi', 'sans-serif'],
     },
     container: {
       center: true,
       padding: "2rem",
+      paddingSearch: "1.4rem",
       screens: {
         "2xl": "1400px",
       },
     },
     extend: {
+      padding: {
+        'search': '1.4rem',
+      },
       colors: {
         gray: '#F6F6F6',
         grayText: '#3C3C43',
+        graySmooth: '#7C7C7C',
+        graySmallTitle: '#828282',
         red: '#FF0000',
+        gradientStart: '#ff7e5f',
+        gradientEnd: '#feb47b',
+        greenBg: '#C1D5C1',
+        greenFront: '#0CB905',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -59,7 +69,8 @@ module.exports = {
         },
       },
       fontSize: {
-        'base': '48px',
+        base: '48px',
+        '2xl': '64px',
       },
       fontWeight: {
         medium: 500,
@@ -68,7 +79,7 @@ module.exports = {
         relaxed: '119.444%',
       },
       letterSpacing: {
-        tight: '-1.92px',
+        tight: '-2.56px',
       },
       borderRadius: {
         lg: "var(--radius)",

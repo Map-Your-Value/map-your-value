@@ -1,11 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import {Competitors} from "@/type.tsx";
+import { Competitors } from "@/type.tsx";
 
 export const columns: ColumnDef<Competitors>[] = [
-    {
-        accessorKey: "id",
-        header: "ID",
-    },
     {
         accessorKey: "name",
         header: "Name",
@@ -31,6 +27,16 @@ export const columns: ColumnDef<Competitors>[] = [
     },
     {
         accessorKey: "cost",
-        header: "Cost",
+        header: "Measure",
+        cell: info => {
+            const value = info.getValue() as number;
+            return (
+                <div className="w-full">
+                    <div className="w-full h-2 bg-greenBg rounded-full">
+                        <div className="h-2 bg-green-600 rounded-full" style={{ width: `${value*100/5}%` }}></div>
+                    </div>
+                </div>
+            );
+        },
     },
 ];
