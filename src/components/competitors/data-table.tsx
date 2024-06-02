@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
     ColumnDef,
     flexRender,
@@ -38,14 +38,13 @@ const icons = {
     features: FeatureIcon,
 };
 
-export function DataTable<TData, TValue>({
-                                             columns,
-                                             data,
-                                         }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({columns, data,}: DataTableProps<TData, TValue>) {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 5,
     });
+    const [rowSelection, setRowSelection] = React.useState({})
+
 
     const table = useReactTable({
         data,
@@ -55,8 +54,10 @@ export function DataTable<TData, TValue>({
         pageCount: Math.ceil(data.length / pagination.pageSize),
         state: {
             pagination,
+            rowSelection,
         },
         onPaginationChange: setPagination,
+        onRowSelectionChange: setRowSelection,
     });
 
     return (
