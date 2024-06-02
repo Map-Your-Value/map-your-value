@@ -1,12 +1,16 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Competitors } from "@/type.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
+import {Popover} from "@radix-ui/react-popover";
+import {PopoverContent, PopoverTrigger} from "@/components/ui/popover.tsx";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog.tsx";
+import { Button } from "@/components/ui/button.tsx";
 
 export const columns: ColumnDef<Competitors>[] = [
     {
         id: "select",
         header: ({ table }) => (
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full mr-4">
                 <Checkbox
                     checked={
                         table.getIsAllPageRowsSelected() ||
@@ -18,7 +22,7 @@ export const columns: ColumnDef<Competitors>[] = [
             </div>
         ),
         cell: ({ row }) => (
-            <div className="pr-0">
+            <div className="flex justify-center items-center h-full mr-4">
                 <Checkbox
                     checked={row.getIsSelected()}
                     onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -28,6 +32,12 @@ export const columns: ColumnDef<Competitors>[] = [
         ),
         enableSorting: false,
         enableHiding: false,
+    },
+    {
+        accessorKey: "Rank",
+        header: "Rank",
+        cell: info => info.row.index + 1,
+        enableSorting: false,
     },
     {
         accessorKey: "Competitor",
@@ -50,13 +60,29 @@ export const columns: ColumnDef<Competitors>[] = [
         cell: info => (Array.isArray(info.getValue()) ? (info.getValue() as string[]).join(", ") : info.getValue()),
     },
     {
-        accessorKey: "Proximity_Score",
+        accessorKey: "Proximity_score",
         header: "Proximity Score",
-        cell: info => info.getValue(),
-    },
-    {
-        accessorKey: "Proximity_Explanation",
-        header: "Proximity Explanation",
+        cell: info => {
+            const value = info.getValue() as number;
+            const row = info.row.original as Competitors;
+            return (
+                <>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <div className="w-full h-2 bg-gradientBg rounded-full cursor-pointer">
+                                <div className="h-2 bg-gradientStart rounded-full"
+                                     style={{width: `${value * 100 / 5}%`}}></div>
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
+                            <div className="grid gap-4">
+                                {row.Proximity_Explanation}
+                            </div>
+                        </PopoverContent>
+                    </Popover>
+                </>
+            );
+        },
     },
     {
         accessorKey: "Crunchbase_Link",
@@ -70,4 +96,32 @@ export const columns: ColumnDef<Competitors>[] = [
             );
         },
     },
+    {
+        accessorKey: "Company_Card",
+        header: "Company Card",
+        cell: ({ row }) => (
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button variant="outline">View Details</Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <h2 className="font-bold text-xl">Company Card</h2>
+                        <DialogDescription >
+                            Detailed information about {row.original.Competitor}.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div>infos</div>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        ),
+    },
 ];
+
+export function assignRanks(data: Competitors[]): Competitors[] {
+    return data
+        .sort((a, b) => b.Proximity_score - a.Proximity_score)
+        .map((item, index) => ({ ...item, Rank: index + 1 }));
+}

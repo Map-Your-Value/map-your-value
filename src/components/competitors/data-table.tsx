@@ -4,15 +4,15 @@ import {
     flexRender,
     getCoreRowModel,
     useReactTable,
-    getPaginationRowModel,
     PaginationState,
 } from "@tanstack/react-table";
 import NameIcon from '@/assets/name.svg';
 import WebsiteIcon from '@/assets/website.svg';
 import SummaryIcon from '@/assets/summary.svg';
-import MeasureIcon from '@/assets/measure.svg';
-import FeatureIcon from '@/assets/feature.svg';
-import VisitorIcon from '@/assets/visitor.svg';
+import WeaknessIcon from '@/assets/weakness.svg';
+import StrengthsIcon from '@/assets/strentgh.svg';
+import ProximityScoreIcon from '@/assets/measure.svg';
+import ProximityExplanationIcon from '@/assets/explanation.svg';
 
 import {
     Table,
@@ -22,7 +22,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button.tsx";
+import {Competitors} from "@/type.tsx";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -30,28 +30,35 @@ interface DataTableProps<TData, TValue> {
 }
 
 const icons = {
-    name: NameIcon,
-    website: WebsiteIcon,
-    summary: SummaryIcon,
-    cost: MeasureIcon,
-    uniqueVisitor: VisitorIcon,
-    features: FeatureIcon,
+    Competitor: NameIcon,
+    Descriptive_summary: SummaryIcon,
+    Weaknesses: WeaknessIcon,
+    Strengths: StrengthsIcon,
+    Proximity_score: ProximityScoreIcon,
+    Proximity_Explanation: ProximityExplanationIcon,
+    Crunchbase_Link: WebsiteIcon,
 };
 
-export function DataTable<TData, TValue>({columns, data,}: DataTableProps<TData, TValue>) {
+function assignRanks(data: Competitors[]): Competitors[] {
+    return data
+        .sort((a, b) => b.Proximity_score - a.Proximity_score)
+        .map((item, index) => ({ ...item, Rank: index + 1 }));
+}
+
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 5,
     });
-    const [rowSelection, setRowSelection] = React.useState({})
+    const [rowSelection, setRowSelection] = React.useState({});
 
+    const sortedData = assignRanks(data);
 
     const table = useReactTable({
-        data,
+        data: sortedData,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        pageCount: Math.ceil(data.length / pagination.pageSize),
+        pageCount: Math.ceil(sortedData.length / pagination.pageSize),
         state: {
             pagination,
             rowSelection,
@@ -72,7 +79,7 @@ export function DataTable<TData, TValue>({columns, data,}: DataTableProps<TData,
                                     return (
                                         <TableHead
                                             key={header.id}
-                                            className={index !== 0 ? "border-l border-gray-300" : ""}
+                                            className={`text-sm ${index !== 0 ? "border-l border-gray-300" : ""}`}
                                         >
                                             {header.isPlaceholder ? null : (
                                                 <div className="flex items-center">
@@ -99,7 +106,7 @@ export function DataTable<TData, TValue>({columns, data,}: DataTableProps<TData,
                                     {row.getVisibleCells().map((cell, index) => (
                                         <TableCell
                                             key={cell.id}
-                                            className={index !== 0 ? "border-l border-gray-300" : ""}
+                                            className={`text-sm ${index !== 0 ? "border-l border-gray-300" : ""}`}
                                         >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
@@ -115,27 +122,6 @@ export function DataTable<TData, TValue>({columns, data,}: DataTableProps<TData,
                         )}
                     </TableBody>
                 </Table>
-            </div>
-            <div className="flex items-center justify-between space-x-2 py-4">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    Previous
-                </Button>
-                <span>
-                    Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-                </span>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    Next
-                </Button>
             </div>
         </>
     );

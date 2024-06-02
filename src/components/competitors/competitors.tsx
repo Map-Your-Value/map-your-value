@@ -8,10 +8,9 @@ import { Competitors } from "@/type.tsx";
 
 interface CompetitorsTableProps {
     data: Competitors[];
-    loading: boolean;
 }
 
-export function CompetitorsTable({ data, loading }: CompetitorsTableProps) {
+export function CompetitorsTable({ data }: CompetitorsTableProps) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [filterValue, setFilterValue] = React.useState<string>("");
@@ -35,15 +34,11 @@ export function CompetitorsTable({ data, loading }: CompetitorsTableProps) {
     });
 
     React.useEffect(() => {
-        const nameColumn = table.getColumn("name");
+        const nameColumn = table.getColumn("Competitor");
         if (nameColumn) {
             nameColumn.setFilterValue(filterValue);
         }
     }, [filterValue, table]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     const filteredData = table.getFilteredRowModel().rows.map(row => row.original);
 
@@ -72,7 +67,7 @@ export function CompetitorsTable({ data, loading }: CompetitorsTableProps) {
         const selectedRows = table.getSelectedRowModel().rows.map(row => row.original);
         console.log(selectedRows);
         selectedRows.forEach(row => {
-            const website = row.website;
+            const website = row.Crunchbase_Link;
             if (website) {
                 window.open(website, '_blank', 'noopener,noreferrer');
             }

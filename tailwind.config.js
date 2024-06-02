@@ -32,8 +32,7 @@ module.exports = {
         red: '#FF0000',
         gradientStart: '#ff7e5f',
         gradientEnd: '#feb47b',
-        greenBg: '#C1D5C1',
-        greenFront: '#0CB905',
+        gradientBg: '#fad6bd',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -69,8 +68,8 @@ module.exports = {
         },
       },
       fontSize: {
-        base: '48px',
-        '2xl': '64px',
+        base: '24px',
+        '2xl': '32px',
       },
       fontWeight: {
         medium: 500,

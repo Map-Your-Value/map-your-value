@@ -45,6 +45,11 @@ function App() {
             </div>
             <div className="h-screen w-full flex flex-col justify-center items-center">
                 <InputSearch onSearch={handleSearchCompetitors} />
+                {loading && (
+                    <div className="mt-4 flex justify-center items-center">
+                        <div className="w-8 h-8 border-4 border-t-4 border-gray-200 border-t-gradientStart rounded-full animate-spin"></div>
+                    </div>
+                )}
                 {showCompetitorsTable && (
                     <div className="w-full animate-fadeIn">
                         <CompetitorsTable data={competitors} loading={loading} />
